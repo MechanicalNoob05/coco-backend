@@ -33,3 +33,6 @@ app.use('/api/user',authRoute);
 
 const testRoute = require('./Routes/test')
 app.use('/api/test',testRoute);
+
+const shopRoute = require('./Routes/shoplist')
+app.use('/api/shop',shopRoute);
