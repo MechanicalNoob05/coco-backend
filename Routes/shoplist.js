@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-router.get('/shoplist', (req, res) => {
+router.get('/', (req, res) => {
 	res.json(
 		[
 			{
