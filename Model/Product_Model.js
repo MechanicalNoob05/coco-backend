@@ -8,7 +8,7 @@ const productSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	pet: {
+	url: {
 		type: String,
 		required: true
 	},
