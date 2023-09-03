@@ -41,8 +41,8 @@ router.post('/login',async (req,res)=>{
 	const validatePass = await bcrypt.compare(req.body.password,user.password)
 	if(!validatePass) return res.status(400).send("password check kar ja")
 
-	const token = jwt.sign({_id: user._id},"testng")
-	res.header('auth-token',token).send(token);
+	const token = jwt.sign({_id: user._id},process.env.SECRET_TOKEN)
+	res.header('auth-token',token).status(200).send(token);
 
 	// res.status(200).send("gusgaya andar")
 })
