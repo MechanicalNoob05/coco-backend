@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors')
 const app = express();
 
 require('dotenv').config()
@@ -25,6 +26,7 @@ connectDB().then(()=>{
 	})
 })
 
+app.use(cors())
 app.use(express.json())
 
 const authRoute = require('./Routes/auth')
