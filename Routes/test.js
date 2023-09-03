@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const auth = require('./tokenValidation');
+const auth = require('../Helpers/tokenValidation');
 
 router.get('/',auth,(req,res)=>{
 	res.json({test:"hello worldwa"})
