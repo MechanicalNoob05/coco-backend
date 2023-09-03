@@ -1,6 +1,15 @@
 const router = require('express').Router();
 const Products = require('../Model/Product_Model')
 
+router.get('/all', async (req, res) => {
+	try {
+		const products = await Products.find()
+		res.json(products)
+	} catch (err) {
+		res.status(500).json({ message: err.message })
+	}
+})
+
 router.get('/acessories', async (req, res) => {
 	try {
 		const products = await Products.find()
