@@ -38,3 +38,6 @@ app.use('/api/test',testRoute);
 
 const shopRoute = require('./Routes/shoplist')
 app.use('/api/shop',shopRoute);
+
+const addProductsRoute = require('./Routes/addProducts')
+app.use('/api/addproducts',addProductsRoute);
