@@ -17,6 +17,7 @@ const UserScheme = new mongoose.Schema({
 		max:1024,
 		min:8
 	},
+	petlist: [{type: mongoose.Schema.Types.ObjectId, required: false, ref: "Pet"}],
 	date:{
 		type:Date,
 		default:Date.now
