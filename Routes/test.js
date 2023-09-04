@@ -25,7 +25,7 @@ router.post("/", upload.single("profilepic"), async (req, res) => {
 
         // Create file metadata including the content type
         const metadata = {
-            contentType: req.file.mimetype,
+            contentType: 'image/png',
         };
 
         // Upload the file in the bucket storage
@@ -35,11 +35,9 @@ router.post("/", upload.single("profilepic"), async (req, res) => {
         // Grab the public url
         const downloadURL = await firebaseStorage.getDownloadURL(snapshot.ref);
 
-        console.log('File successfully uploaded.');
+        // console.log('File successfully uploaded.');
         return res.send({
             message: 'file uploaded to firebase storage',
-            name: req.file.originalname,
-            type: req.file.mimetype,
             downloadURL: downloadURL
         })
     } catch (error) {
