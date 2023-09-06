@@ -24,7 +24,7 @@ router.post('/register', async (req,res)=>{
 	})
 	try {
 		const savedUser = await user.save()
-		res.status(201).send(`Mubarakhbaa ${savedUser.name}`)
+		res.status(201).json({sucess:true, id: savedUser._id})
 	} catch (error) {
 		res.status(400).send(error)
 	}
