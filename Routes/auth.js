@@ -36,13 +36,13 @@ router.post('/login',async (req,res)=>{
 
 
 	const user = await User.findOne({email: req.body.email});
-	if(!user) return res.status(400).send("Register kar pehele");
+	if(!user) return res.status(400).json({err:"Register kar pehele"});
 
 	const validatePass = await bcrypt.compare(req.body.password,user.password)
-	if(!validatePass) return res.status(400).send("password check kar ja")
+	if(!validatePass) return res.status(400).json({err:"password check kar ja"})
 
 	const token = jwt.sign({_id: user._id},process.env.SECRET_TOKEN)
-	res.header('auth-token',token).status(200).send(token);
+	res.header('auth-token',token).status(200).json({sucess:true,token});
 
 	// res.status(200).send("gusgaya andar")
 })
