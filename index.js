@@ -24,9 +24,15 @@ app.use(cors())
 // const commentrouter = require('./routes/comment')
 // app.use('/comment',commentrouter)
 
-const userrouter = require('./routes/Provideruser')
+const userrouter = require('./routes/UserRoute')
 app.use('/user',userrouter)
 
+
+const providerMember = require('./routes/Provideruser')
+app.use('/member',providerMember)
+
+const caseRouter = require('./routes/Casesroute')
+app.use('/case',caseRouter)
 
 app.get('/healthCheck',(req,res)=>{
 	res.send({"Stat": true })
