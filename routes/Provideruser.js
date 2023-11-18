@@ -1,10 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const UserModel = require('../models/lawyerInfo')
+const UserModel = require('../models/ProviderInfo')
 
 
 
 router.post('/signup', async (req, res) => {
+  ('Siging up')
   try {
     // Assuming the request body contains the necessary data for creating a new user
     const userData = req.body;
@@ -23,11 +24,31 @@ router.post('/signup', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
+  ('retive')
   try {
     // Fetch all users from the database
     const users = await UserModel.find();
 
     res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+router.get('/users/:userId', async (req, res) => {
+  ('getbyid')
+  try {
+    const userId = req.params.userId;
+
+    // Find the user by ID in the database
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json(user);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

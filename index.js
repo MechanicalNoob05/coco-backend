@@ -24,7 +24,7 @@ app.use(cors())
 // const commentrouter = require('./routes/comment')
 // app.use('/comment',commentrouter)
 
-const userrouter = require('./routes/user')
+const userrouter = require('./routes/Provideruser')
 app.use('/user',userrouter)
 
 
