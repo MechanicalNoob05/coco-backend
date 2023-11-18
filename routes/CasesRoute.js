@@ -6,7 +6,7 @@ const ServiceRequestModel = require('../models/Cases');
 
 // GET route to fetch all service requests
 router.get('/', async (req, res) => {
-    ('get case')
+    console.log('get case')
   try {
     const serviceRequests = await ServiceRequestModel.find().populate('user_information');
     res.status(200).json(serviceRequests);
@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
   }
 });
 router.post('/add-case', async (req, res) => {
-    ('add case')
+  console.log('add case')
     try {
       // Assuming the request body contains the necessary data for creating a new service request
       const serviceRequestData = req.body;

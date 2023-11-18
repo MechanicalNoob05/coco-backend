@@ -28,10 +28,10 @@ const userrouter = require('./routes/UserRoute')
 app.use('/user',userrouter)
 
 
-const providerMember = require('./routes/Provideruser')
+const providerMember = require('./routes/ProviderRoute')
 app.use('/member',providerMember)
 
-const caseRouter = require('./routes/Casesroute')
+const caseRouter = require('./routes/CasesRoute')
 app.use('/case',caseRouter)
 
 app.get('/healthCheck',(req,res)=>{

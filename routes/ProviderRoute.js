@@ -5,7 +5,7 @@ const UserModel = require('../models/ProviderInfo')
 
 
 router.post('/signup', async (req, res) => {
-  ('Siging up')
+  console.log('Siging up')
   try {
     // Assuming the request body contains the necessary data for creating a new user
     const userData = req.body;
@@ -24,7 +24,7 @@ router.post('/signup', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  ('retive')
+  console.log('retive')
   try {
     // Fetch all users from the database
     const users = await UserModel.find();
@@ -37,7 +37,7 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:userId', async (req, res) => {
-  ('getbyid')
+  console.log('getbyid')
   try {
     const userId = req.params.userId;
 

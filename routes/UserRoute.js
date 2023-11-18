@@ -35,7 +35,7 @@ router.post('/signup', async (req, res) => {
     }
 });
 router.get('/:userId', async (req, res) => {
-    ('getbyid')
+    console.log('getbyid')
     try {
       const userId = req.params.userId;
   
