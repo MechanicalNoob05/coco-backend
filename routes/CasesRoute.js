@@ -33,5 +33,25 @@ router.post('/add-case', async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+
+  router.get('/:caseId', async (req, res) => {
+    console.log('getcasebyid')
+    try {
+      const caseId = req.params.caseId;
+  
+      // Find the user by ID in the database
+      const casefromid = await ServiceRequestModel.findById(caseId);
+      
+  
+      if (!casefromid) {
+        return res.status(404).json({ error: 'case not found' });
+      }
+  
+      res.status(200).json(casefromid);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
   
 module.exports = router;
