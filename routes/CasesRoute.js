@@ -45,11 +45,22 @@ router.get('/:userId', async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: 'Case not found' });
     }
+  });
 
-    res.status(200).json(user);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+
+  router.get('/user-cases/:userId', async (req, res) => {
+    console.log('get cases for user');
+    try {
+      const userId = req.params.userId;
+  
+      // Find all service requests with the given userId
+      const userCases = await ServiceRequestModel.find({ 'user_information': userId }).populate('user_information');
+  
+      res.status(200).json(userCases);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
 module.exports = router;
