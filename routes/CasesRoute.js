@@ -45,7 +45,7 @@ router.get('/:userId', async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: 'Case not found' });
     }
-  }catch(err){
+  } catch (err) {
     console.log(err)
   };
 }
