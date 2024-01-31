@@ -1,15 +1,16 @@
 // Assuming this code is in a file named userRoutes.js
 
-import { Router } from 'express';
-const router = Router();
-import UserModel, { find, findById } from '../models/UserInfo'; // Assuming your user model is in the 'models' directory
+const express = require('express');
+const router = express.Router();
+// import UserModel, { find, findById } from '../models/UserInfo'; // Assuming your user model is in the 'models' directory
+const UserModel = require("../models/UserInfo")
 
 // POST route to create a new user
 router.get('/', async (_req, res) => {
   console.log('Getting all Regular User')
   try {
     // Fetch all users from the database
-    const users = await find();
+    const users = await UserModel.find();
 
     res.status(200).json(users);
   } catch (error) {
@@ -55,4 +56,4 @@ router.get('/:userId', async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router
