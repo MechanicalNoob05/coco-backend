@@ -1,17 +1,21 @@
-var jwt = require('jsonwebtoken');
-const JWT_SECRET = 'internwala_project';
+const jwt = require('jsonwebtoken');
 
-const fetchuser=(req, res,next) => {
-    const token=req.header('auth-token');
-    if (!token) {
-        return res.status(400).json({ errors:"Bad Authentication"});
-      }
-    try {
-        const data=jwt.verify(token,JWT_SECRET)
-        req.user=data.user;
-        next();
-    } catch (err) {
-      res.json([{ errors:'please enter a valid email', message: err.message}])
-    }
+// Middleware to authenticate the token
+const authenticateToken = (req, res, next) => {
+  const token = req.header('Authorization')?.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ error: 'Access denied. No token provided.' });
   }
-  module.exports=fetchuser
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(400).json({ error: 'Invalid token' });
+  }
+};
+
+module.exports = authenticateToken;
+

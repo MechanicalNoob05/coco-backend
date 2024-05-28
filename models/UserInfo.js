@@ -1,24 +1,78 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
-  name: {
+const scoreSchema = new mongoose.Schema({
+  category: {
     type: String,
     required: true,
   },
-  contact_information: {
+  score: {
+    type: Number,
+    default: 0,
+  },
+  total: {
+    type: Number,
+    default: 0,
+  },
+});
+
+const resultSchema = new mongoose.Schema({
+  id: {
+    type: String,
+    required: true,
+  },
+  question: {
+    type: String,
+    required: true,
+  },
+  submittedOption: {
+    type: String,
+    required: true,
+  },
+  correctAnswer: {
+    type: String,
+    required: true,
+  },
+  isCorrect: {
+    type: Boolean,
+    required: true,
+  },
+},{
+    _id: false
+  });
+
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
     email: {
       type: String,
       required: true,
     },
-    phone: {
+    password: {
       type: String,
+      required: true,
+    },
+    selectedCategories: {
+      type: [String],
+      default: [],
+    },
+    score: {
+      type: [scoreSchema],
+      default: [],
+    },
+    lastResults: {
+      type: [resultSchema],
+      default: [],
     },
   },
-  address: {
-    type: String,
-  },
-});
+  {
+    timestamps: true,
+    collection: 'users',
+  }
+);
 
-const UserModel = mongoose.model('regularuser', userSchema);
+const UserModel = mongoose.model('user', userSchema);
 
 module.exports = UserModel;

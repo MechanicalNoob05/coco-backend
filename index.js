@@ -5,7 +5,7 @@ const cors = require('cors')
 
 const app = express()
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 5000
 
 mongoose.set('strictQuery',false)
 
@@ -31,8 +31,11 @@ app.use('/user',userrouter)
 const providerMember = require('./routes/ProviderRoute')
 app.use('/member',providerMember)
 
-const caseRouter = require('./routes/CasesRoute')
-app.use('/case',caseRouter)
+// const caseRouter = require('./routes/CasesRoute')
+// app.use('/case',caseRouter)
+
+const questionRouter = require('./routes/QuestionRoute')
+app.use('/question',questionRouter)
 
 app.get('/healthCheck',(req,res)=>{
 	res.send({"Stat": true })

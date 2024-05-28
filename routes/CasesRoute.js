@@ -6,7 +6,7 @@ const ServiceRequestModel = require('../models/Cases');
 
 // GET route to fetch all service requests
 router.get('/', async (req, res) => {
-  console.log('Get all Cases')
+  console.log('Get all topics')
   try {
     const serviceRequests = await ServiceRequestModel.find().populate('user_information');
     res.status(200).json(serviceRequests);
@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-router.post('/add-case', async (req, res) => {
+router.post('/add-question', async (req, res) => {
   console.log('Add new Case')
   try {
     // Assuming the request body contains the necessary data for creating a new service request
