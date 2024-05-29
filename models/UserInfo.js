@@ -62,6 +62,10 @@ const userSchema = new mongoose.Schema(
       type: [scoreSchema],
       default: [],
     },
+    highScore: {
+      type: Number,
+      default: 0,
+    },
     lastResults: {
       type: [resultSchema],
       default: [],

@@ -18,6 +18,12 @@ router.post('/signup', async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
+    // Check if the email already exists
+    const existingUser = await UserModel.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Email already exists' });
+    }
+
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -31,7 +37,7 @@ router.post('/signup', async (req, res) => {
     // Save the new user to the database
     const savedUser = await newUser.save();
 
-    res.status(201).json({ "name": savedUser.name, "email": savedUser.email }); // Respond with the created user
+    res.status(201).json({ name: savedUser.name, email: savedUser.email }); // Respond with the created user
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -107,6 +113,38 @@ router.get('/verify', authenticateToken, async (req, res) => {
   }
 })
 
+router.get('/result', authenticateToken, async (req, res) => {
+  console.log('User Verifying');
+  try {
+    const userId = req.user.userId;
+    console.log(userId);
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ sucess: false });
+    }
+    res.status(200).json({ "lastResults": user.lastResults });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ sucess: false });
+  }
+})
+router.get('/result/view', authenticateToken, async (req, res) => {
+  console.log('User Verifying');
+  try {
+    const userId = req.user.userId;
+    console.log(userId);
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ sucess: false });
+    }
+    user.lastResults = []
+    await user.save();
+    res.status(200).json({ sucess: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ sucess: false });
+  }
+})
 router.get('/profile', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
@@ -114,7 +152,7 @@ router.get('/profile', authenticateToken, async (req, res) => {
 
     // Find the user by userId
     const user = await UserModel.findById(userId);
-
+    const topHighScores = await UserModel.find({},{highScore: 1, _id: 1, name: 1}).sort({ highScore: -1 }).limit(3).exec();
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
@@ -123,7 +161,8 @@ router.get('/profile', authenticateToken, async (req, res) => {
       {
         "score": user.score,
         "name": user.name,
-        "selectedCategory": user.selectedCategories
+        "selectedCategory": user.selectedCategories,
+        "topHighScores": topHighScores
       }
     );
   } catch (error) {
