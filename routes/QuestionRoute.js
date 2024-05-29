@@ -99,14 +99,10 @@ router.post('/check-answers/:category', authenticateToken, async (req, res) => {
 		}
 		user.lastResults = results;
 		let highscore  = 0;
-		let totalscore = 0;
 		for (let i = 0; i < user.score.length; i++) {
 			highscore = user.score[i].score;
-			totalscore = user.score[i].total;
 		}
-		if(highscore !== totalscore){
-			user.highScore += highscore;
-		}
+		user.highScore += highscore;
 		await user.save();
 		res.status(200).json({ sucess: true });
 	} catch (error) {
